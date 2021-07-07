@@ -35,6 +35,7 @@ import {
   PanelWrapper,
   TabButton,
   TabPanel,
+  TabButtonWrapper,
 } from './styles';
 
 const Scrollable = styled.div`
@@ -56,31 +57,38 @@ const TablistPanel = ({
 
   return (
     <PanelWrapper className={className} isExpanded={isExpanded}>
-      <TabButton
-        aria-controls={panelId}
-        aria-label={sprintf(
-          /* translators: %d: number of issues, %s: title */
-          _n('%1$d %2$s issue', '%1$d %2$s issues', badgeCount, 'web-stories'),
-          badgeCount,
-          title
-        )}
-        aria-selected={isExpanded}
-        onClick={onClick}
-        role="tab"
-        status={status}
-      >
-        <ButtonText>
-          <IconContainer>
-            <Icons.ChevronDownSmall />
-          </IconContainer>
-          <PanelText id={`${title}-${panelId}`} aria-hidden>
-            {title}
-          </PanelText>
-        </ButtonText>
-        <Badge>
-          <PanelText aria-hidden>{badgeCount}</PanelText>
-        </Badge>
-      </TabButton>
+      <TabButtonWrapper>
+        <TabButton
+          aria-controls={panelId}
+          aria-label={sprintf(
+            /* translators: %d: number of issues, %s: title */
+            _n(
+              '%1$d %2$s issue',
+              '%1$d %2$s issues',
+              badgeCount,
+              'web-stories'
+            ),
+            badgeCount,
+            title
+          )}
+          aria-selected={isExpanded}
+          onClick={onClick}
+          role="tab"
+          status={status}
+        >
+          <ButtonText>
+            <IconContainer>
+              <Icons.ChevronDownSmall />
+            </IconContainer>
+            <PanelText id={`${title}-${panelId}`} aria-hidden>
+              {title}
+            </PanelText>
+          </ButtonText>
+          <Badge>
+            <PanelText aria-hidden>{badgeCount}</PanelText>
+          </Badge>
+        </TabButton>
+      </TabButtonWrapper>
       <Scrollable maxHeight={maxHeight}>
         <TabPanel aria-labelledby={`${title}-${panelId}`} role="tabpanel">
           {children}
